@@ -65,15 +65,23 @@ function App() {
 
     return (
         <div style={{ padding: '20px', width: '300px' }}>
-            <div style={{ display: 'flex', gap: '2px', alignItems: 'center' }}>
-                <input type="text" value={inputText} onChange={handleInputChange} onKeyDown={(e) => e.key === 'Enter' && handleAddText()} className="Input" placeholder="keyword..." />
+            <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
+                <input
+                    type="text"
+                    value={inputText}
+                    onChange={handleInputChange}
+                    onKeyDown={(e) => e.key === 'Enter' && handleAddText()}
+                    className="Input"
+                    placeholder="keyword..."
+                    style={{ borderRadius: '10px', border: '2px solid white' }}
+                />
                 <button onClick={handleAddText} className="Btn" style={{ width: '70px', margin: '0' }}>
                     Add
                 </button>
             </div>
-            <div style={{ display: 'flex', gap: '4px', flexWrap: 'wrap', width: '100%', marginTop: '20px' }}>
+            <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', width: '100%', marginTop: '20px' }}>
                 {storedTexts.map((text, index) => (
-                    <div style={{ display: 'flex', gap: '2px' }}>
+                    <div style={{ display: 'flex', gap: '4px' }}>
                         <button key={index} onClick={() => handleSearchText(text)} className="Btn">
                             {text}
                         </button>
