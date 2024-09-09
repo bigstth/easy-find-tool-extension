@@ -3,33 +3,25 @@
 import React, { useState, useEffect } from 'react'
 import './App.css'
 
-const isExtensionEnvironment = () => typeof chrome !== 'undefined' && chrome.runtime && chrome.runtime.id
-
 function App() {
     const [inputText, setInputText] = useState('')
     const [storedTexts, setStoredTexts] = useState([])
 
     useEffect(() => {
-        if (isExtensionEnvironment()) {
-            import('webextension-polyfill').then((browser) => {
-                browser.storage.local.get('texts').then(({ texts }) => {
-                    if (texts) setStoredTexts(texts)
-                })
-            })
-        }
+        chrome.storage.local.get('texts').then(({ texts }) => {
+            if (texts) setStoredTexts(texts)
+        })
     }, [])
 
     const handleInputChange = (event) => setInputText(event.target.value)
 
     const handleAddText = () => {
-        if (!isExtensionEnvironment() || !inputText.trim()) return
+        if (!inputText.trim()) return
 
-        import('webextension-polyfill').then((browser) => {
-            const newStoredTexts = [...storedTexts, inputText.trim()]
-            browser.storage.local.set({ texts: newStoredTexts }).then(() => {
-                setStoredTexts(newStoredTexts)
-                setInputText('')
-            })
+        const newStoredTexts = [...storedTexts, inputText.trim()]
+        chrome.storage.local.set({ texts: newStoredTexts }).then(() => {
+            setStoredTexts(newStoredTexts)
+            setInputText('')
         })
     }
 
@@ -39,15 +31,11 @@ function App() {
     }
 
     const handleSearchText = (text) => {
-        if (!isExtensionEnvironment()) return
-
-        import('webextension-polyfill').then((browser) => {
-            browser.tabs.query({ active: true, currentWindow: true }).then((tabs) => {
-                browser.scripting.executeScript({
-                    target: { tabId: tabs[0].id },
-                    func: (searchTerm) => window.find(searchTerm, false, false, true),
-                    args: [text],
-                })
+        chrome.tabs.query({ active: true, currentWindow: true }).then((tabs) => {
+            chrome.scripting.executeScript({
+                target: { tabId: tabs[0].id },
+                func: (searchTerm) => window.find(searchTerm, false, false, true),
+                args: [text],
             })
         })
     }
@@ -77,7 +65,7 @@ function App() {
                     marginTop: '20px',
                 }}
             >
-                {storedTexts.map((text, index) => (
+                {storedTexts?.map((text, index) => (
                     <div key={index} style={{ display: 'flex', gap: '4px' }}>
                         <button onClick={() => handleSearchText(text)} className="Btn">
                             {text}
