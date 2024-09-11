@@ -89,7 +89,8 @@ function App() {
                     </div>
                 ))}
             </div>
-            <p style={{ color: 'white', marginTop: '8px' }}>Fast Open: (Ctrl or Cmd)+Shift+F</p>
+            <p style={{ color: 'white', marginTop: '8px' }}>{`Fast Open`}</p>
+            <p style={{ color: 'white', marginTop: '8px' }}>{`Window -> Ctrl+Shift+F | Mac -> Command+E`}</p>
         </div>
     )
 }

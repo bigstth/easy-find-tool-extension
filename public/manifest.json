@@ -1,7 +1,7 @@
 {
     "manifest_version": 3,
-    "name": "Easy find Tool by Bigstth",
-    "version": "1.3",
+    "name": "Easy find Tool",
+    "version": "1.4",
     "description": "Save the words you frequently search for so you can easily access them with a click, rather than typing them out each time.",
     "action": {
         "default_popup": "index.html"
@@ -13,7 +13,7 @@
         "open_extension": {
             "suggested_key": {
                 "default": "Ctrl+Shift+F",
-                "mac": "Command+Shift+F"
+                "mac": "Command+E"
             },
             "description": "Open the extension popup"
         }
