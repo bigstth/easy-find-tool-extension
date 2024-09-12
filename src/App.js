@@ -67,7 +67,7 @@ function App() {
             >
                 {storedTexts?.map((text, index) => (
                     <div key={index} style={{ display: 'flex', gap: '4px' }}>
-                        <button onClick={() => handleSearchText(text)} className="Btn">
+                        <button onClick={() => handleSearchText(text)} className="Btn" style={{ wordBreak: 'break-all' }}>
                             {text}
                         </button>
                         <button
